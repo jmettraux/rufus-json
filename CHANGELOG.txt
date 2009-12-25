@@ -1,0 +1,6 @@
+
+= rufus-json CHANGELOG.txt
+
+
+== rufus-json - 0.1.0    released 2009/12/25
+
