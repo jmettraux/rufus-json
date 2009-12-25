@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["John Mettraux"]
   s.date = %q{2009-12-25}
   s.description = %q{
-one interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl
+One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.
   }
   s.email = %q{jmettraux@gmail.com}
   s.extra_rdoc_files = [
@@ -34,7 +34,7 @@ one interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rufus}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{one interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl}
+  s.summary = %q{One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.}
   s.test_files = [
     "test/test.rb"
   ]
