@@ -3,10 +3,14 @@
 
 One interface for various JSON Ruby backends.
 
+  require 'rubygems'
+
   # load your favourite JSON backend
   require 'yajl'
   #require 'json'
   #require 'active_support'
+
+  require 'rufus-json' # gem install rufus-json
 
   p Rufus::Json.decode('{"a":2,"b":true}')
     # => { 'a' => 2, 'b' => true }
