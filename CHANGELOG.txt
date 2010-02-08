@@ -2,5 +2,10 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 0.2.0    released 2010/02/08
+
+- JSON :max_nesting set to nil (no limits)
+
+
 == rufus-json - 0.1.0    released 2009/12/25
 

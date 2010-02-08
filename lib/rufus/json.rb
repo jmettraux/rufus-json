@@ -26,13 +26,13 @@
 module Rufus
 module Json
 
-  VERSION = '0.1.0'
+  VERSION = '0.2.0'
 
   # The JSON / JSON pure decoder
   #
   JSON = [
     lambda { |o| o.to_json },
-    lambda { |s| ::JSON.parse(s) }
+    lambda { |s| ::JSON.parse(s, :max_nesting => nil) }
   ]
 
   # The Rails ActiveSupport::JSON decoder

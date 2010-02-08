@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rufus-json}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Mettraux"]
-  s.date = %q{2009-12-25}
+  s.date = %q{2010-02-08}
   s.description = %q{
 One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.
   }
@@ -27,6 +27,7 @@ One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
      "lib/rufus-json.rb",
      "lib/rufus/json.rb",
      "rufus-json.gemspec",
+     "test/nesting20.rb",
      "test/test.rb"
   ]
   s.homepage = %q{http://github.com/jmettraux/rufus-json/}

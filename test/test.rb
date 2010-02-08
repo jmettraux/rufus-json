@@ -61,6 +61,11 @@ class JsonTest < Test::Unit::TestCase
     do_test_dup('json', Rufus::Json::JSON)
   end
 
+  def test_deep_nesting_json
+
+    do_test_deep_nesting('json', Rufus::Json::JSON)
+  end
+
   def test_decode_yajl
 
     do_test_decode('yajl', Rufus::Json::YAJL)
@@ -76,6 +81,11 @@ class JsonTest < Test::Unit::TestCase
     do_test_dup('yajl', Rufus::Json::YAJL)
   end
 
+  def test_deep_nesting_yajl
+
+    do_test_deep_nesting('yajl', Rufus::Json::YAJL)
+  end
+
   def test_decode_as
 
     do_test_decode('active_support', Rufus::Json::ACTIVE)
@@ -89,6 +99,11 @@ class JsonTest < Test::Unit::TestCase
   def test_dup_as
 
     do_test_dup('active_support', Rufus::Json::ACTIVE)
+  end
+
+  def test_deep_nesting_as
+
+    do_test_deep_nesting('active_support', Rufus::Json::ACTIVE)
   end
 
   protected
@@ -128,6 +143,24 @@ class JsonTest < Test::Unit::TestCase
 
     assert_equal({ 'id' => 'nada' }, Rufus::Json.dup(d0))
     assert_equal({ 'id' => 'nada' }, Rufus::Json.dup(d1))
+  end
+
+  def do_test_deep_nesting (lib, cons)
+
+    require lib
+    Rufus::Json.backend = cons
+
+    s = "{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{\"a\":{}}}}}}}}}}}}}}}}}}}}}}"
+
+    h = {}
+    p = h
+    (1..21).each do |i|
+      p['a'] = {}
+      p = p['a']
+    end
+
+    assert_equal(s, Rufus::Json.encode(h))
+    assert_equal(h, Rufus::Json.decode(s))
   end
 end
 
