@@ -2,6 +2,11 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 0.2.1    not yet released
+
+- ActiveSupport::JSON.encode(o) instead of o.to_json
+
+
 == rufus-json - 0.2.0    released 2010/02/08
 
 - JSON :max_nesting set to nil (no limits)

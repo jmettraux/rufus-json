@@ -26,7 +26,7 @@
 module Rufus
 module Json
 
-  VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   # The JSON / JSON pure decoder
   #
@@ -38,7 +38,7 @@ module Json
   # The Rails ActiveSupport::JSON decoder
   #
   ACTIVE_SUPPORT = [
-    lambda { |o| o.to_json },
+    lambda { |o| ActiveSupport::JSON.encode(o) },
     lambda { |s| ActiveSupport::JSON.decode(s) }
   ]
   ACTIVE = ACTIVE_SUPPORT
