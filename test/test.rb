@@ -66,6 +66,11 @@ class JsonTest < Test::Unit::TestCase
     do_test_deep_nesting('json', Rufus::Json::JSON)
   end
 
+  def test_parser_error_json
+
+    do_test_parser_error('json', Rufus::Json::JSON)
+  end
+
   def test_decode_yajl
 
     do_test_decode('yajl', Rufus::Json::YAJL)
@@ -84,6 +89,11 @@ class JsonTest < Test::Unit::TestCase
   def test_deep_nesting_yajl
 
     do_test_deep_nesting('yajl', Rufus::Json::YAJL)
+  end
+
+  def test_parser_error_yajl
+
+    do_test_parser_error('yajl', Rufus::Json::YAJL)
   end
 
   def test_decode_as
@@ -161,6 +171,18 @@ class JsonTest < Test::Unit::TestCase
 
     assert_equal(s, Rufus::Json.encode(h))
     assert_equal(h, Rufus::Json.decode(s))
+  end
+
+  def do_test_parser_error (lib, cons)
+
+    require lib
+    Rufus::Json.backend = cons
+
+    s = '{foo:cx1234}'
+
+    assert_raise Rufus::Json::ParserError do
+      Rufus::Json.decode(s)
+    end
   end
 end
 
