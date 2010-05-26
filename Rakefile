@@ -31,7 +31,7 @@ One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
   }
   gem.email = 'jmettraux@gmail.com'
   gem.homepage = 'http://github.com/jmettraux/rufus-json/'
-  gem.authors = [ 'John Mettraux' ]
+  gem.authors = [ 'John Mettraux', 'Torsten Schoenebaum' ]
   gem.rubyforge_project = 'rufus'
 
   gem.test_file = 'test/test.rb'
@@ -41,7 +41,9 @@ One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
   gem.add_development_dependency 'activesupport'
   #gem.add_development_dependency 'json_pure'
   #gem.add_development_dependency 'json-jruby'
-  gem.add_development_dependency 'yard', '>= 0'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'yard'
+  gem.add_development_dependency 'jeweler'
 
   # gemspec spec : http://www.rubygems.org/read/chapter/20
 end

@@ -2,6 +2,11 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 0.2.2    released 2010/05/26
+
+- Unified Rufus::Json::ParserError (Torsten Schoenebaum)
+
+
 == rufus-json - 0.2.1    released 2010/05/03
 
 - ActiveSupport::JSON.encode(o) instead of o.to_json
