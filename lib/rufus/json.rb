@@ -55,7 +55,7 @@ module Json
 
   # The "raise an exception because there's no backend" backend
   #
-  NONE = [ 
+  NONE = [
     lambda { |s| raise 'no JSON backend found' },
     lambda { |s| raise 'no JSON backend found' },
     lambda { raise 'no JSON backend found' }
