@@ -71,6 +71,11 @@ class JsonTest < Test::Unit::TestCase
     do_test_parser_error('json', Rufus::Json::JSON)
   end
 
+  def test_json_atoms_json
+
+    do_test_json_atoms('json', Rufus::Json::JSON)
+  end
+
   def test_decode_yajl
 
     do_test_decode('yajl', Rufus::Json::YAJL)
@@ -96,6 +101,11 @@ class JsonTest < Test::Unit::TestCase
     do_test_parser_error('yajl', Rufus::Json::YAJL)
   end
 
+  def test_json_atoms_yajl
+
+    do_test_json_atoms('yajl', Rufus::Json::YAJL)
+  end
+
   def test_decode_as
 
     do_test_decode('active_support', Rufus::Json::ACTIVE)
@@ -114,6 +124,11 @@ class JsonTest < Test::Unit::TestCase
   def test_deep_nesting_as
 
     do_test_deep_nesting('active_support', Rufus::Json::ACTIVE)
+  end
+
+  def test_json_atoms_as
+
+    do_test_json_atoms('active_support', Rufus::Json::ACTIVE)
   end
 
   protected
@@ -182,6 +197,26 @@ class JsonTest < Test::Unit::TestCase
 
     assert_raise Rufus::Json::ParserError do
       Rufus::Json.decode(s)
+    end
+  end
+
+  def do_test_json_atoms (lib, cons)
+
+    require lib
+    Rufus::Json.backend = cons
+
+    [
+      [ '1', 1 ],
+      [ '1.1', 1.1 ],
+      [ '1.1e10', 1.1e10 ],
+      [ '1.1E10', 1.1e10 ],
+      [ '1.1E-10', 1.1e-10 ],
+      [ '"a"', 'a' ],
+      [ 'true', true ],
+      [ 'false', false ],
+      [ 'null', nil ]
+    ].each do |s, v|
+      assert_equal v, Rufus::Json.decode(s)
     end
   end
 end

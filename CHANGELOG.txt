@@ -4,6 +4,9 @@
 
 == rufus-json - 0.2.3    not yet released
 
+- made sure we're able to parse any JSON string
+  ('json' couldn't parse "true", '"string"' or "12345" on their own)
+
 
 == rufus-json - 0.2.2    released 2010/05/26
 

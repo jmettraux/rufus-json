@@ -32,7 +32,7 @@ module Json
   #
   JSON = [
     lambda { |o| o.to_json },
-    lambda { |s| ::JSON.parse(s, :max_nesting => nil) },
+    lambda { |s| ::JSON.parse("[#{s}]", :max_nesting => nil).first },
     lambda { ::JSON::ParserError }
   ]
 
@@ -40,8 +40,9 @@ module Json
   #
   ACTIVE_SUPPORT = [
     lambda { |o| ActiveSupport::JSON.encode(o) },
-    lambda { |s| ActiveSupport::JSON.decode(s) },
-    lambda { ::ActiveSupport::JSON::ParseError }
+    lambda { |s| decode_e(s) || ActiveSupport::JSON.decode(s) },
+    #lambda { ::ActiveSupport::JSON::ParseError }
+    lambda { RuntimeError }
   ]
   ACTIVE = ACTIVE_SUPPORT
 
@@ -133,6 +134,15 @@ module Json
   def self.dup (o)
 
     (@backend == NONE) ? Marshal.load(Marshal.dump(o)) : decode(encode(o))
+  end
+
+  E_REGEX = /^\d+(\.\d+)?[eE][+-]?\d+$/
+
+  # Let's ActiveSupport do the E number notation.
+  #
+  def self.decode_e (s)
+
+    s.match(E_REGEX) ? eval(s) : false
   end
 
   # Wraps parser errors during decode
