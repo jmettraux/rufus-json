@@ -2,7 +2,7 @@
 = rufus-json CHANGELOG.txt
 
 
-== rufus-json - 0.2.3    not yet released
+== rufus-json - 0.2.3    released 2010/06/29
 
 - made sure we're able to parse any JSON string
   ('json' couldn't parse "true", '"string"' or "12345" on their own)
