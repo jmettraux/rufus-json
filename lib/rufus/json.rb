@@ -31,9 +31,10 @@ module Json
   # The JSON / JSON pure decoder
   #
   JSON = [
-    #lambda { |o| o.to_json },
-    lambda { |o| ::JSON.generate(o, { :max_nesting => false }) },
-    lambda { |o, opts| ::JSON.generate(o, opts) },
+    lambda { |o, opts|
+      opts[:max_nesting] = false unless opts.has_key?(:max_nesting)
+      ::JSON.generate(o, opts)
+    },
     lambda { |s| ::JSON.parse("[#{s}]", :max_nesting => nil).first },
     lambda { ::JSON::ParserError }
   ]
@@ -41,7 +42,6 @@ module Json
   # The Rails ActiveSupport::JSON decoder
   #
   ACTIVE_SUPPORT = [
-    lambda { |o| ActiveSupport::JSON.encode(o) },
     lambda { |o, opts| ActiveSupport::JSON.encode(o, opts) },
     lambda { |s| decode_e(s) || ActiveSupport::JSON.decode(s) },
     #lambda { ::ActiveSupport::JSON::ParseError }
@@ -52,7 +52,6 @@ module Json
   # http://github.com/brianmario/yajl-ruby/
   #
   YAJL = [
-    lambda { |o| Yajl::Encoder.encode(o) },
     lambda { |o, opts| Yajl::Encoder.encode(o, opts) },
     lambda { |s| Yajl::Parser.parse(s) },
     lambda { ::Yajl::ParseError }
@@ -61,7 +60,6 @@ module Json
   # The "raise an exception because there's no backend" backend
   #
   NONE = [
-    lambda { |o| raise 'no JSON backend found' },
     lambda { |o, opts| raise 'no JSON backend found' },
     lambda { |s| raise 'no JSON backend found' },
     lambda { raise 'no JSON backend found' }
@@ -114,22 +112,19 @@ module Json
     @backend = b
   end
 
-  def self.encode (o, opts=nil)
+  def self.encode (o, opts={})
 
-    opts ? @backend[1].call(o, opts) : @backend[0].call(o)
+    @backend[0].call(o, opts)
   end
 
   # Decodes the given JSON string.
   #
   def self.decode (s)
 
-    begin
+    @backend[1].call(s)
 
-      @backend[2].call(s)
-
-    rescue @backend[3].call => e
-      raise ParserError, e.message
-    end
+  rescue @backend[2].call => e
+    raise ParserError.new(e.message)
   end
 
   # Duplicates an object by turning it into JSON and back.
