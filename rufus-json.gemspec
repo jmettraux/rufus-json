@@ -27,6 +27,8 @@ One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
      "lib/rufus-json.rb",
      "lib/rufus/json.rb",
      "rufus-json.gemspec",
+     "test/backend_test.rb",
+     "test/do_test.rb",
      "test/nesting20.rb",
      "test/test.rb"
   ]

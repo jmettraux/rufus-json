@@ -2,7 +2,7 @@
 = rufus-json CHANGELOG.txt
 
 
-== rufus-json - 0.2.4    not yet released
+== rufus-json - 0.2.4    released 2010/07/17
 
 - Rufus::Json.pretty_encode(o) (except for active_support)
 - Rufus::Json.encode(o, opts={}) options are accessible
