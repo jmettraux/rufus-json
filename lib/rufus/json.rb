@@ -106,15 +106,32 @@ module Json
   #
   def self.backend= (b)
 
-    b = { :yajl => YAJL, :json => JSON, :active => ACTIVE, :none => NONE }[b] \
-      if b.is_a?(Symbol)
+    if b.is_a?(Symbol)
+      b = { :yajl => YAJL, :json => JSON, :active => ACTIVE, :none => NONE }[b]
+    end
 
     @backend = b
   end
 
+  # Encodes the given object to a JSON string.
+  #
   def self.encode (o, opts={})
 
     @backend[0].call(o, opts)
+  end
+
+  # Pretty encoding
+  #
+  def self.pretty_encode (o)
+
+    case @backend
+      when JSON
+        encode(o, :indent => '  ', :object_nl => "\n", :array_nl => "\n", :space => ' ')
+      when YAJL
+        encode(o, :pretty => true, :indent => '  ')
+      else
+        encode(o)
+    end
   end
 
   # Decodes the given JSON string.

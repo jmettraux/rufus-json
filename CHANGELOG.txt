@@ -4,6 +4,7 @@
 
 == rufus-json - 0.2.4    not yet released
 
+- Rufus::Json.pretty_encode(o) (except for active_support)
 - Rufus::Json.encode(o, opts={}) options are accessible
 
 

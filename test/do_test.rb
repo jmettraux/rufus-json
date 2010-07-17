@@ -99,12 +99,12 @@ class DoTest < Test::Unit::TestCase
     end
   end
 
-  #def test_pretty_printing
-  #  assert_equal(%{
-  #    },
-  #    Rufus::Json.encode(
-  #      { 'a' => 'b', 'c' => 'd', 'e' => [ 1, 2, 3 ] },
-  #      :pretty => true, :indent => '  '))
-  #end
+  def test_pretty_encode
+
+    s = Rufus::Json.pretty_encode(
+      { 'a' => 'b', 'e' => [ 1, 2, 3 ], 'c' => { 'd' => true } })
+
+    assert(s.index("\n")) if JSON_LIB != 'active_support'
+  end
 end
 
