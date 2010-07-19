@@ -20,7 +20,7 @@ else
 end
 
 puts
-puts '  ' + Rufus::Json.backend.to_s.upcase
+puts "  #{Rufus::Json.backend.to_s.upcase} (#{JSON_LIB})"
 puts
 
 
@@ -33,6 +33,7 @@ class DoTest < Test::Unit::TestCase
 
     target = JSON_LIB.to_sym
     target = :active if target == :active_support
+    target = :json if JSON_LIB == 'json/pure'
 
     assert_equal target, Rufus::Json.backend
   end

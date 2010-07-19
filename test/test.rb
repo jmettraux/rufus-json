@@ -10,7 +10,7 @@ require 'rubygems'
 R = `which ruby`.strip
 P = File.dirname(__FILE__)
 
-%w[ json active_support yajl ].each do |lib|
+%w[ json active_support yajl json/pure ].each do |lib|
   puts
   puts '-' * 80
   puts "#{R} #{P}/do_test.rb #{lib}"
