@@ -33,7 +33,11 @@ module Json
   JSON = [
     lambda { |o, opts|
       opts[:max_nesting] = false unless opts.has_key?(:max_nesting)
-      ::JSON.generate(o, opts)
+      if o.is_a?(Hash) or o.is_a?(Array)
+        ::JSON.generate(o, opts)
+      else
+        ::JSON.generate([ o ], opts).strip[1..-2]
+      end
     },
     lambda { |s| ::JSON.parse("[#{s}]", :max_nesting => nil).first },
     lambda { ::JSON::ParserError }

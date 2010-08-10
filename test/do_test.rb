@@ -48,6 +48,15 @@ class DoTest < Test::Unit::TestCase
     assert_equal "[1,2,3]", Rufus::Json.encode([ 1, 2, 3 ])
   end
 
+  def test_encode_value # instead of object or array
+
+    assert_equal 'null', Rufus::Json.encode(nil)
+    assert_equal 'true', Rufus::Json.encode(true)
+    assert_equal 'false', Rufus::Json.encode(false)
+    assert_equal '1.0', Rufus::Json.encode(1.0)
+    assert_equal '"Capitaine Haddock"', Rufus::Json.encode('Capitaine Haddock')
+  end
+
   def test_dup
 
     d0 = { 'id' => 'nada' }

@@ -2,6 +2,12 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 0.2.5    not yet released
+
+- Rufus::Json.encode(o) now accepting string, numbers, boolean and null
+  for any JSON backend (especially json and json-pure)
+
+
 == rufus-json - 0.2.4    released 2010/07/17
 
 - Rufus::Json.pretty_encode(o) (except for active_support)
