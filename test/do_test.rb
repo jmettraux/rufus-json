@@ -52,9 +52,11 @@ class DoTest < Test::Unit::TestCase
 
     d0 = { 'id' => 'nada' }
     d1 = { :id => :nada }
+    #d2 = { :id => { :tree => [ 'nada', {}, [] ] } }
 
     assert_equal({ 'id' => 'nada' }, Rufus::Json.dup(d0))
     assert_equal({ 'id' => 'nada' }, Rufus::Json.dup(d1))
+    #assert_equal({ 'id' => 'tree' }, Rufus::Json.dup(d2))
   end
 
   def test_deep_nesting
