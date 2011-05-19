@@ -138,6 +138,13 @@ module Json
     end
   end
 
+  # An alias for .encode
+  #
+  def self.dump (o, opts={})
+
+    encode(o, opts)
+  end
+
   # Decodes the given JSON string.
   #
   def self.decode (s)
@@ -146,6 +153,13 @@ module Json
 
   rescue @backend[2].call => e
     raise ParserError.new(e.message)
+  end
+
+  # An alias for .decode
+  #
+  def self.load (s)
+
+    decode(s)
   end
 
   # Duplicates an object by turning it into JSON and back.

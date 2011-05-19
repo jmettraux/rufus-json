@@ -48,6 +48,16 @@ class DoTest < Test::Unit::TestCase
     assert_equal "[1,2,3]", Rufus::Json.encode([ 1, 2, 3 ])
   end
 
+  def test_load
+
+    assert_equal [ 1, 2, 3 ], Rufus::Json.load("[ 1, 2, 3 ]")
+  end
+
+  def test_dump
+
+    assert_equal "[1,2,3]", Rufus::Json.dump([ 1, 2, 3 ])
+  end
+
   def test_encode_value # instead of object or array
 
     assert_equal 'null', Rufus::Json.encode(nil)

@@ -2,6 +2,11 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 0.2.6    not yet released
+
+- Rufus::Json .dump and .load (aliases to .encode/.decode). Thanks @tenderlove
+
+
 == rufus-json - 0.2.5    released 2010/08/10
 
 - Rufus::Json.encode(o) now accepting string, numbers, boolean and null
