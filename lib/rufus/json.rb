@@ -108,7 +108,7 @@ module Json
   #
   # It's OK to pass a symbol as well, :yajl, :json, :active (or :none).
   #
-  def self.backend= (b)
+  def self.backend=(b)
 
     if b.is_a?(Symbol)
       b = { :yajl => YAJL, :json => JSON, :active => ACTIVE, :none => NONE }[b]
@@ -119,14 +119,14 @@ module Json
 
   # Encodes the given object to a JSON string.
   #
-  def self.encode (o, opts={})
+  def self.encode(o, opts={})
 
     @backend[0].call(o, opts)
   end
 
   # Pretty encoding
   #
-  def self.pretty_encode (o)
+  def self.pretty_encode(o)
 
     case @backend
       when JSON
@@ -140,14 +140,14 @@ module Json
 
   # An alias for .encode
   #
-  def self.dump (o, opts={})
+  def self.dump(o, opts={})
 
     encode(o, opts)
   end
 
   # Decodes the given JSON string.
   #
-  def self.decode (s)
+  def self.decode(s)
 
     @backend[1].call(s)
 
@@ -157,7 +157,7 @@ module Json
 
   # An alias for .decode
   #
-  def self.load (s)
+  def self.load(s)
 
     decode(s)
   end
@@ -166,7 +166,7 @@ module Json
   #
   # Don't laugh, yajl-ruby makes that faster than a Marshal copy.
   #
-  def self.dup (o)
+  def self.dup(o)
 
     (@backend == NONE) ? Marshal.load(Marshal.dump(o)) : decode(encode(o))
   end
@@ -175,7 +175,7 @@ module Json
 
   # Let's ActiveSupport do the E number notation.
   #
-  def self.decode_e (s)
+  def self.decode_e(s)
 
     s.match(E_REGEX) ? eval(s) : false
   end
