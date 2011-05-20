@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.name = 'rufus-json'
   s.version = Rufus::Json::VERSION
   s.platform = Gem::Platform::RUBY
-  s.authors = [ 'John Mettraux' ]
+  s.authors = [ 'John Mettraux', 'Torsten Schoenebaum' ]
   s.email = [ 'jmettraux@gmail.com' ]
   s.homepage = 'http://github.com/jmettraux/rufus-json'
   s.rubyforge_project = 'rufus'
