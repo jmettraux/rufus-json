@@ -1,6 +1,12 @@
 
 = rufus-json CHANGELOG.txt
 
+
+== rufus-json - 1.0.0    released 2011/05/25
+
+- reaching 1.0.0 finally
+
+
 == rufus-json - 0.2.7    released 2011/05/20
 == rufus-json - 0.2.6    released 2011/05/20
 
