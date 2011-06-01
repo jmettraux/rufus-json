@@ -139,10 +139,10 @@ module Json
 
     b = {
       'yajl' => YAJL, 'yajl-ruby' => YAJL,
-      'json' => JSON, 'json/pure' => JSON, 'json_pure' => JSON,
-      'active' => ACTIVE, 'active_support' => ACTIVE,
+      'json' => JSON, 'json-pure' => JSON,
+      'active' => ACTIVE, 'active-support' => ACTIVE,
       'none' => NONE
-    }[b.to_s] if b.is_a?(String) or b.is_a?(Symbol)
+    }[b.to_s.gsub(/[_\/]/, '-')] if b.is_a?(String) or b.is_a?(Symbol)
 
     @backend = b
   end

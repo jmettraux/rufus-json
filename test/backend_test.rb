@@ -46,6 +46,15 @@ class BackendTest < Test::Unit::TestCase
     assert_equal :json, Rufus::Json.backend
   end
 
+  def test_set_backend_twist
+
+    require 'json/pure'
+
+    Rufus::Json.backend = 'json_pure'
+
+    assert_equal :json, Rufus::Json.backend
+  end
+
   def test_load_backend
 
     r = Rufus::Json.load_backend
