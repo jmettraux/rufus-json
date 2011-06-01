@@ -45,5 +45,28 @@ class BackendTest < Test::Unit::TestCase
 
     assert_equal :json, Rufus::Json.backend
   end
+
+  def test_load_backend
+
+    r = Rufus::Json.load_backend
+
+    assert_equal 'yajl', r
+    assert_equal :yajl, Rufus::Json.backend
+  end
+
+  def test_load_backend_with_different_order
+
+    r = Rufus::Json.load_backend('json', 'yajl')
+
+    assert_equal 'json', r
+    assert_equal :json, Rufus::Json.backend
+  end
+
+  def test_load_backend_with_missing_backend
+
+    r = Rufus::Json.load_backend('nada', 'nemo')
+
+    assert_nil r
+  end
 end
 

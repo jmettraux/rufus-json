@@ -4,6 +4,8 @@
 
 == rufus-json - 1.0.1    not yet released
 
+- Rufus::Json.load_backend(*order)
+
 
 == rufus-json - 1.0.0    released 2011/05/25
 

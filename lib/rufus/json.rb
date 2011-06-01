@@ -69,6 +69,33 @@ module Json
     lambda { raise 'no JSON backend found' }
   ]
 
+  # In the given order, attempts to load a json lib and sets it as the
+  # backend of rufus-json.
+  #
+  # Returns the name of lib found if sucessful.
+  #
+  # Returns nil if no lib could be set.
+  #
+  # The default order / list of backends is yajl, active_support, json,
+  # json/pure. When specifying a custom order/list, unspecified backends
+  # won't be tried for.
+  #
+  def self.load_backend(*order)
+
+    order = %w[ yajl active_support json json/pure ] if order.empty?
+
+    order.each do |lib|
+      begin
+        require(lib)
+        Rufus::Json.backend = lib
+        return lib
+      rescue LoadError => le
+      end
+    end
+
+    nil
+  end
+
   # [Re-]Attempts to detect a JSON backend
   #
   def self.detect_backend
@@ -110,9 +137,12 @@ module Json
   #
   def self.backend=(b)
 
-    if b.is_a?(Symbol)
-      b = { :yajl => YAJL, :json => JSON, :active => ACTIVE, :none => NONE }[b]
-    end
+    b = {
+      'yajl' => YAJL,
+      'json' => JSON, 'json/pure' => JSON,
+      'active' => ACTIVE, 'active_support' => ACTIVE,
+      'none' => NONE
+    }[b.to_s] if b.is_a?(String) or b.is_a?(Symbol)
 
     @backend = b
   end
