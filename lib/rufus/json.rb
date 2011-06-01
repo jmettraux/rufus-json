@@ -138,8 +138,8 @@ module Json
   def self.backend=(b)
 
     b = {
-      'yajl' => YAJL,
-      'json' => JSON, 'json/pure' => JSON,
+      'yajl' => YAJL, 'yajl-ruby' => YAJL,
+      'json' => JSON, 'json/pure' => JSON, 'json_pure' => JSON,
       'active' => ACTIVE, 'active_support' => ACTIVE,
       'none' => NONE
     }[b.to_s] if b.is_a?(String) or b.is_a?(Symbol)

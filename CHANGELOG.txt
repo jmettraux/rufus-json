@@ -4,6 +4,7 @@
 
 == rufus-json - 1.0.1    not yet released
 
+- require 'rufus-json/automatic' ('one require' rufus-json)
 - Rufus::Json.load_backend(*order)
 
 

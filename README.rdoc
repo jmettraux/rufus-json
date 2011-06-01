@@ -13,9 +13,11 @@ One interface for various JSON Ruby backends.
   require 'rufus-json' # gem install rufus-json
 
   p Rufus::Json.decode('{"a":2,"b":true}')
+  p Rufus::Json.load('{"a":2,"b":true}')
     # => { 'a' => 2, 'b' => true }
 
   p Rufus::Json.encode({ 'a' => 2, 'b' => true })
+  p Rufus::Json.dump({ 'a' => 2, 'b' => true })
     # => '{"a":2,"b":true}'
 
 
@@ -43,6 +45,20 @@ It's OK to load a lib and force detection :
 There is a dup method, it may be useful in an all JSON system (flattening stuff that will anyway get flattened later).
 
   o = Rufus::Json.dup(o)
+
+
+=== require 'rufus-json/automatic'
+
+  require 'rufus-json/automatic'
+
+will require 'rufus-json' and load the first JSON lib available (in the order yajl, active_support, json, json/pure.
+
+It is equivalent to
+
+  require 'rufus-json'
+  Rufus::Json.load_backend
+
+(the .load_backend method accepts a list/order of backends to try).
 
 
 == rdoc
