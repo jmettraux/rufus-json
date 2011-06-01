@@ -9,16 +9,26 @@ require 'rubygems'
 
 R = `which ruby`.strip
 P = File.dirname(__FILE__)
+$result = ''
 
-%w[ json active_support yajl json/pure ].each do |lib|
+def do_test(command)
+
   puts
   puts '-' * 80
-  puts "#{R} #{P}/do_test.rb #{lib}"
-  puts `#{R} #{P}/do_test.rb #{lib}`
+  puts command
+  puts `#{command}`
+
+  $result << ($?.exitstatus == 0 ? 'o' : 'X')
 end
 
+%w[ json active_support yajl json/pure ].each do |lib|
+  do_test "#{R} #{P}/do_test.rb #{lib}"
+end
+
+do_test "#{R} #{P}/backend_test.rb"
+
 puts
-puts '-' * 80
-puts "#{R} #{P}/backend_test.rb"
-puts `#{R} #{P}/backend_test.rb`
+puts
+puts $result
+puts
 
