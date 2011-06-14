@@ -2,6 +2,9 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 1.0.2    not yet released
+
+
 == rufus-json - 1.0.1    released 2011/06/01
 
 - require 'rufus-json/automatic' ('one require' rufus-json)
