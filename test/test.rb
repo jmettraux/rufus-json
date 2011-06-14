@@ -21,7 +21,10 @@ def do_test(command)
   $result << ($?.exitstatus == 0 ? 'o' : 'X')
 end
 
-%w[ json active_support yajl json/pure ].each do |lib|
+LIBS = %w[ json active_support json/pure ] :
+LIBS << 'yajl' if RUBY_PLATFORM != 'java'
+
+LIBS.each do |lib|
   do_test "#{R} #{P}/do_test.rb #{lib}"
 end
 
