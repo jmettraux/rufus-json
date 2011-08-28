@@ -21,7 +21,7 @@ def do_test(command)
   $result << ($?.exitstatus == 0 ? 'o' : 'X')
 end
 
-LIBS = %w[ json active_support json/pure ] :
+LIBS = %w[ json active_support json/pure ]
 LIBS << 'yajl' if RUBY_PLATFORM != 'java'
 
 LIBS.each do |lib|
