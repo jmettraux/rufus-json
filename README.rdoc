@@ -91,6 +91,7 @@ http://rufus.rubyforge.org
 == authors
 
 * John Mettraux, http://jmettraux.wordpress.com/
+* Torsten Schoenebaum, https://github.com/tosch
 
 
 == license
