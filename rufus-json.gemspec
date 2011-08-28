@@ -1,13 +1,12 @@
-# encoding: utf-8
-
-require File.join(File.dirname(__FILE__), 'lib/rufus/json')
-  # bundler wants absolute path
-
 
 Gem::Specification.new do |s|
 
   s.name = 'rufus-json'
-  s.version = Rufus::Json::VERSION
+
+  s.version = File.read(
+    File.expand_path('../lib/rufus/json.rb', __FILE__)
+  ).match(/ VERSION *= *['"]([^'"]+)/)[1]
+
   s.platform = Gem::Platform::RUBY
   s.authors = [ 'John Mettraux', 'Torsten Schoenebaum' ]
   s.email = [ 'jmettraux@gmail.com' ]
