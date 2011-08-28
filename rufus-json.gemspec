@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.email = [ 'jmettraux@gmail.com' ]
   s.homepage = 'http://github.com/jmettraux/rufus-json'
   s.rubyforge_project = 'rufus'
-  s.summary = 'One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.'
+  s.summary = 'One interface to various JSON ruby libs, with a preference for yajl.'
 
   s.description = %{
 One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.
