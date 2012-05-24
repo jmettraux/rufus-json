@@ -32,6 +32,8 @@ do_test "#{R} #{P}/backend_test.rb"
 
 puts
 puts
+puts '-' * 80
 puts $result
+puts '-' * 80
 puts
 

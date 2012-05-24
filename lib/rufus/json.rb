@@ -22,6 +22,8 @@
 # Made in Japan.
 #++
 
+require 'ostruct'
+
 
 module Rufus
 module Json
@@ -30,8 +32,8 @@ module Json
 
   # The JSON / JSON pure decoder
   #
-  JSON = [
-    lambda { |o, opts|
+  JSON = OpenStruct.new(
+    :encode => lambda { |o, opts|
       opts[:max_nesting] = false unless opts.has_key?(:max_nesting)
       if o.is_a?(Hash) or o.is_a?(Array)
         ::JSON.generate(o, opts)
@@ -39,35 +41,52 @@ module Json
         ::JSON.generate([ o ], opts).strip[1..-2]
       end
     },
-    lambda { |s| ::JSON.parse("[#{s}]", :max_nesting => nil).first },
-    lambda { ::JSON::ParserError }
-  ]
+    :pretty_encode => lambda { |o|
+      encode(
+        o,
+        :indent => '  ', :object_nl => "\n", :array_nl => "\n", :space => ' ')
+    },
+    :decode => lambda { |s|
+      ::JSON.parse("[#{s}]", :max_nesting => nil).first },
+    :error => lambda {
+      ::JSON::ParserError }
+  )
 
   # The Rails ActiveSupport::JSON decoder
   #
-  ACTIVE_SUPPORT = [
-    lambda { |o, opts| ActiveSupport::JSON.encode(o, opts) },
-    lambda { |s| decode_e(s) || ActiveSupport::JSON.decode(s) },
-    #lambda { ::ActiveSupport::JSON::ParseError }
-    lambda { RuntimeError }
-  ]
+  ACTIVE_SUPPORT = OpenStruct.new(
+    :encode => lambda { |o, opts|
+      ActiveSupport::JSON.encode(o, opts) },
+    :pretty_encode => lambda { |o|
+      ActiveSupport::JSON.encode(o) },
+    :decode => lambda { |s|
+      decode_e(s) || ActiveSupport::JSON.decode(s) },
+    :error => lambda {
+      RuntimeError }
+  )
   ACTIVE = ACTIVE_SUPPORT
 
   # http://github.com/brianmario/yajl-ruby/
   #
-  YAJL = [
-    lambda { |o, opts| Yajl::Encoder.encode(o, opts) },
-    lambda { |s| Yajl::Parser.parse(s) },
-    lambda { ::Yajl::ParseError }
-  ]
+  YAJL = OpenStruct.new(
+    :encode => lambda { |o, opts|
+      Yajl::Encoder.encode(o, opts) },
+    :pretty_encode => lambda { |o|
+      Yajl::Encoder.encode(o, :pretty => true, :indent => '  ') },
+    :decode => lambda { |s|
+      Yajl::Parser.parse(s) },
+    :error => lambda {
+      ::Yajl::ParseError }
+  )
 
   # The "raise an exception because there's no backend" backend
   #
-  NONE = [
-    lambda { |o, opts| raise 'no JSON backend found' },
-    lambda { |s| raise 'no JSON backend found' },
-    lambda { raise 'no JSON backend found' }
-  ]
+  NONE = OpenStruct.new(
+    :encode => lambda { |o, opts| raise 'no JSON backend found' },
+    :pretty_encode => lambda { |o| raise 'no JSON backend found' },
+    :decode => lambda { |s| raise 'no JSON backend found' },
+    :error => lambda { raise 'no JSON backend found' }
+  )
 
   # In the given order, attempts to load a json lib and sets it as the
   # backend of rufus-json.
@@ -151,21 +170,14 @@ module Json
   #
   def self.encode(o, opts={})
 
-    @backend[0].call(o, opts)
+    @backend.encode[o, opts]
   end
 
   # Pretty encoding
   #
   def self.pretty_encode(o)
 
-    case @backend
-      when JSON
-        encode(o, :indent => '  ', :object_nl => "\n", :array_nl => "\n", :space => ' ')
-      when YAJL
-        encode(o, :pretty => true, :indent => '  ')
-      else
-        encode(o)
-    end
+    @backend.pretty_encode[o]
   end
 
   # An alias for .encode
@@ -179,9 +191,9 @@ module Json
   #
   def self.decode(s)
 
-    @backend[1].call(s)
+    @backend.decode[s]
 
-  rescue @backend[2].call => e
+  rescue @backend.error[] => e
     raise ParserError.new(e.message)
   end
 
