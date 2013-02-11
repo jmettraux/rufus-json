@@ -2,7 +2,13 @@
 = rufus-json CHANGELOG.txt
 
 
-== rufus-json - 1.0.2    not yet released
+== rufus-json - 1.0.3    released 2013/02/12
+
+- JSON.parse(s, :create_additions => false)
+  see https://groups.google.com/forum/?fromgroups=#!topic/rubyonrails-security/4_YvCpLzL58
+
+
+== rufus-json - 1.0.2    released 2012/05/24
 
 
 == rufus-json - 1.0.1    released 2011/06/01

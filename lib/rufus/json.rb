@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2009-2012, John Mettraux, jmettraux@gmail.com
+# Copyright (c) 2009-2013, John Mettraux, jmettraux@gmail.com
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ require 'ostruct'
 module Rufus
 module Json
 
-  VERSION = '1.0.2'
+  VERSION = '1.0.3'
 
   # The JSON / JSON pure decoder
   #
@@ -47,7 +47,11 @@ module Json
         :indent => '  ', :object_nl => "\n", :array_nl => "\n", :space => ' ')
     },
     :decode => lambda { |s|
-      ::JSON.parse("[#{s}]", :max_nesting => nil).first },
+      ::JSON.parse(
+        "[#{s}]",
+        :max_nesting => nil,
+        :create_additions => false
+      ).first },
     :error => lambda {
       ::JSON::ParserError }
   )
