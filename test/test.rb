@@ -21,8 +21,7 @@ def do_test(command)
 end
 
 LIBS = %w[ json active_support json/pure ]
-LIBS.concat %w[ yajl ] if RUBY_PLATFORM != 'java'
-#LIBS.concat %w[ yajl oj ] if RUBY_PLATFORM != 'java'
+LIBS.concat %w[ yajl oj ] if RUBY_PLATFORM != 'java'
 
 LIBS.each do |lib|
   do_test "export JSON=#{lib}; #{R} #{P}/do_test.rb"

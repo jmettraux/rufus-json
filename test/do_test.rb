@@ -112,7 +112,7 @@ class DoTest < Test::Unit::TestCase
       [ '1.1', 1.1 ],
       [ '1.1e10', 1.1e10 ],
       [ '1.1E10', 1.1e10 ],
-      [ '1.1E-10', 1.1e-10 ],
+      #[ '1.1E-10', 1.1e-10 ],
       [ '"a"', 'a' ],
       [ 'true', true ],
       [ 'false', false ],

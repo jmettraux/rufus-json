@@ -70,7 +70,7 @@ module Json
   )
   ACTIVE = ACTIVE_SUPPORT
 
-  # http://github.com/brianmario/yajl-ruby/
+  # https://github.com/brianmario/yajl-ruby/
   #
   YAJL = OpenStruct.new(
     :encode => lambda { |o, opts|
@@ -81,6 +81,19 @@ module Json
       Yajl::Parser.parse(s) },
     :error => lambda {
       ::Yajl::ParseError }
+  )
+
+  # https://github.com/ohler55/oj
+  #
+  OJ = OpenStruct.new(
+    :encode => lambda { |o, opts|
+      Oj.dump(syms_to_s(o), opts.merge(:symbol_keys => false)) },
+    :pretty_encode => lambda { |o|
+      Oj.dump(syms_to_s(o), :indent => 2) },
+    :decode => lambda { |s|
+      Oj.load(s, :strict => true) },
+    :error => lambda {
+      ::Oj::ParseError }
   )
 
   # The "raise an exception because there's no backend" backend
@@ -123,7 +136,9 @@ module Json
   #
   def self.detect_backend
 
-    @backend = if defined?(::Yajl)
+    @backend = if defined?(::Oj)
+      OJ
+    elsif defined?(::Yajl)
       YAJL
     elsif defined?(::JSON)
       JSON
@@ -148,7 +163,7 @@ module Json
   #
   def self.backend
 
-    %w[ yajl json active none ].find { |b|
+    %w[ yajl json active oj none ].find { |b|
       Rufus::Json.const_get(b.upcase) == @backend
     }.to_sym
   end
@@ -164,7 +179,7 @@ module Json
       'yajl' => YAJL, 'yajl-ruby' => YAJL,
       'json' => JSON, 'json-pure' => JSON,
       'active' => ACTIVE, 'active-support' => ACTIVE,
-      'none' => NONE
+      'oj' => OJ, 'none' => NONE
     }[b.to_s.gsub(/[_\/]/, '-')] if b.is_a?(String) or b.is_a?(Symbol)
 
     @backend = b
@@ -224,6 +239,16 @@ module Json
   def self.decode_e(s)
 
     s.match(E_REGEX) ? eval(s) : false
+  end
+
+  # Used to get a uniform behaviour among encoders.
+  #
+  def self.syms_to_s(o)
+
+    return o.to_s if o.is_a?(Symbol)
+    return o unless o.is_a?(Hash)
+
+    o.inject({}) { |h, (k, v)| h[k.to_s] = syms_to_s(v); h }
   end
 
   # Wraps parser errors during decode
