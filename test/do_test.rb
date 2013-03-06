@@ -5,12 +5,13 @@
 # Fri Jul 31 13:05:37 JST 2009
 #
 
+raise "please run me with bundle exec ruby..." unless defined?(Bundler)
+
 require 'test/unit'
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'rufus/json'
-require 'rubygems'
 
-JSON_LIB = ARGV[0]
+JSON_LIB = ENV['JSON']
 require JSON_LIB
 
 if JSON_LIB == 'active_support'

@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.summary = 'One interface to various JSON ruby libs, with a preference for yajl.'
 
   s.description = %{
-One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, active_support). Has a preference for yajl.
+One interface to various JSON ruby libs (yajl, oj, json, json_pure, json-jruby, active_support). Has a preference for yajl.
   }.strip
 
   #s.files = `git ls-files`.split("\n")
@@ -25,10 +25,11 @@ One interface to various JSON ruby libs (yajl, json, json_pure, json-jruby, acti
     '*.gemspec', '*.txt', '*.rdoc', '*.md'
   ]
 
-  s.add_development_dependency 'json'
-  s.add_development_dependency 'json_pure'
-  s.add_development_dependency 'yajl-ruby'
-  s.add_development_dependency 'activesupport'
+  #s.add_development_dependency 'oj'
+  #s.add_development_dependency 'json'
+  #s.add_development_dependency 'json_pure'
+  #s.add_development_dependency 'yajl-ruby'
+  #s.add_development_dependency 'activesupport'
   s.add_development_dependency 'rake'
 
   s.require_path = 'lib'

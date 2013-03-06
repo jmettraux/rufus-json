@@ -5,9 +5,8 @@
 # Sat Jul 17 14:38:44 JST 2010
 #
 
-require 'rubygems'
-
-R = `which ruby`.strip
+#R = `which ruby`.strip
+R = 'bundle exec ruby'
 P = File.dirname(__FILE__)
 $result = ''
 
@@ -22,10 +21,11 @@ def do_test(command)
 end
 
 LIBS = %w[ json active_support json/pure ]
-LIBS << 'yajl' if RUBY_PLATFORM != 'java'
+LIBS.concat %w[ yajl ] if RUBY_PLATFORM != 'java'
+#LIBS.concat %w[ yajl oj ] if RUBY_PLATFORM != 'java'
 
 LIBS.each do |lib|
-  do_test "#{R} #{P}/do_test.rb #{lib}"
+  do_test "export JSON=#{lib}; #{R} #{P}/do_test.rb"
 end
 
 do_test "#{R} #{P}/backend_test.rb"
