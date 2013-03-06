@@ -6,7 +6,7 @@ require 'rubygems/user_interaction' if Gem::RubyGemsVersion == '1.5.0'
 
 require 'rake'
 require 'rake/clean'
-require 'rdoc/task'
+#require 'rdoc/task'
 
 
 #
@@ -53,20 +53,20 @@ task :push => :build do
 end
 
 
+##
+## rdoc
+##
+## make sure to have rdoc 2.5.x to run that
 #
-# rdoc
+#Rake::RDocTask.new do |rd|
 #
-# make sure to have rdoc 2.5.x to run that
-
-Rake::RDocTask.new do |rd|
-
-  rd.main = 'README.txt'
-  rd.rdoc_dir = "rdoc/#{GEMSPEC.name}"
-
-  rd.rdoc_files.include('README.rdoc', 'CHANGELOG.txt', 'lib/**/*.rb')
-
-  rd.title = "#{GEMSPEC.name} #{GEMSPEC.version}"
-end
+#  rd.main = 'README.txt'
+#  rd.rdoc_dir = "rdoc/#{GEMSPEC.name}"
+#
+#  rd.rdoc_files.include('README.rdoc', 'CHANGELOG.txt', 'lib/**/*.rb')
+#
+#  rd.title = "#{GEMSPEC.name} #{GEMSPEC.version}"
+#end
 
 
 #
