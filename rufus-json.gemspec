@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.email = [ 'jmettraux@gmail.com' ]
   s.homepage = 'http://github.com/jmettraux/rufus-json'
   s.rubyforge_project = 'rufus'
+  s.license = 'MIT'
   s.summary = 'One interface to various JSON ruby libs, with a preference for yajl.'
 
   s.description = %{
