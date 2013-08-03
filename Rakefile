@@ -1,8 +1,5 @@
 
-$:.unshift('.') # 1.9.2
-
 require 'rubygems'
-require 'rubygems/user_interaction' if Gem::RubyGemsVersion == '1.5.0'
 
 require 'rake'
 require 'rake/clean'
@@ -69,17 +66,17 @@ end
 #end
 
 
+##
+## upload_rdoc
 #
-# upload_rdoc
-
-desc %{
-  upload the rdoc to rubyforge
-}
-task :upload_rdoc => [ :clean, :rdoc ] do
-
-  account = 'jmettraux@rubyforge.org'
-  webdir = '/var/www/gforge-projects/rufus'
-
-  sh "rsync -azv -e ssh rdoc/#{GEMSPEC.name} #{account}:#{webdir}/"
-end
+#desc %{
+#  upload the rdoc to rubyforge
+#}
+#task :upload_rdoc => [ :clean, :rdoc ] do
+#
+#  account = 'jmettraux@rubyforge.org'
+#  webdir = '/var/www/gforge-projects/rufus'
+#
+#  sh "rsync -azv -e ssh rdoc/#{GEMSPEC.name} #{account}:#{webdir}/"
+#end
 
