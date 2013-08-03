@@ -8,6 +8,9 @@
 #R = `which ruby`.strip
 R = 'bundle exec ruby'
 P = File.dirname(__FILE__)
+
+load "#{P}/no_backend_test.rb"
+
 $result = ''
 
 def do_test(command)

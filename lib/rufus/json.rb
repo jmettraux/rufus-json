@@ -229,7 +229,11 @@ module Json
   #
   def self.dup(o)
 
-    (@backend == NONE) ? Marshal.load(Marshal.dump(o)) : decode(encode(o))
+    if @backend == NONE
+      syms_to_s(Marshal.load(Marshal.dump(o)))
+    else
+      decode(encode(o))
+    end
   end
 
   E_REGEX = /^\d+(\.\d+)?[eE][+-]?\d+$/

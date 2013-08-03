@@ -8,6 +8,7 @@
 raise "please run me with bundle exec ruby..." unless defined?(Bundler)
 
 require 'test/unit'
+
 $:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'rufus/json'
 

@@ -4,6 +4,8 @@
 
 == rufus-json - 1.0.5    not yet released
 
+- ensure .dup stringifies keys when backend == NONE
+
 
 == rufus-json - 1.0.4    released 2013/03/06
 
