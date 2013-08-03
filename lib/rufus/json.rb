@@ -22,8 +22,6 @@
 # Made in Japan.
 #++
 
-require 'ostruct'
-
 
 module Rufus
 module Json
@@ -32,7 +30,7 @@ module Json
 
   # The JSON / JSON pure decoder
   #
-  JSON = OpenStruct.new(
+  JSON = {
     :encode => lambda { |o, opts|
       opts[:max_nesting] = false unless opts.has_key?(:max_nesting)
       if o.is_a?(Hash) or o.is_a?(Array)
@@ -54,11 +52,11 @@ module Json
       ).first },
     :error => lambda {
       ::JSON::ParserError }
-  )
+  }
 
   # The Rails ActiveSupport::JSON decoder
   #
-  ACTIVE_SUPPORT = OpenStruct.new(
+  ACTIVE_SUPPORT = {
     :encode => lambda { |o, opts|
       ActiveSupport::JSON.encode(o, opts) },
     :pretty_encode => lambda { |o|
@@ -67,12 +65,12 @@ module Json
       decode_e(s) || ActiveSupport::JSON.decode(s) },
     :error => lambda {
       RuntimeError }
-  )
+  }
   ACTIVE = ACTIVE_SUPPORT
 
   # https://github.com/brianmario/yajl-ruby/
   #
-  YAJL = OpenStruct.new(
+  YAJL = {
     :encode => lambda { |o, opts|
       Yajl::Encoder.encode(o, opts) },
     :pretty_encode => lambda { |o|
@@ -81,11 +79,11 @@ module Json
       Yajl::Parser.parse(s) },
     :error => lambda {
       ::Yajl::ParseError }
-  )
+  }
 
   # https://github.com/ohler55/oj
   #
-  OJ = OpenStruct.new(
+  OJ = {
     :encode => lambda { |o, opts|
       Oj.dump(syms_to_s(o), opts.merge(:symbol_keys => false)) },
     :pretty_encode => lambda { |o|
@@ -94,16 +92,16 @@ module Json
       Oj.load(s, :strict => true) },
     :error => lambda {
       ::Oj::ParseError }
-  )
+  }
 
   # The "raise an exception because there's no backend" backend
   #
-  NONE = OpenStruct.new(
+  NONE = {
     :encode => lambda { |o, opts| raise 'no JSON backend found' },
     :pretty_encode => lambda { |o| raise 'no JSON backend found' },
     :decode => lambda { |s| raise 'no JSON backend found' },
     :error => lambda { raise 'no JSON backend found' }
-  )
+  }
 
   # In the given order, attempts to load a json lib and sets it as the
   # backend of rufus-json.
@@ -189,14 +187,14 @@ module Json
   #
   def self.encode(o, opts={})
 
-    @backend.encode[o, opts]
+    @backend[:encode][o, opts]
   end
 
   # Pretty encoding
   #
   def self.pretty_encode(o)
 
-    @backend.pretty_encode[o]
+    @backend[:pretty_encode][o]
   end
 
   # An alias for .encode
@@ -210,9 +208,9 @@ module Json
   #
   def self.decode(s)
 
-    @backend.decode[s]
+    @backend[:decode][s]
 
-  rescue @backend.error[] => e
+  rescue @backend[:error][] => e
     raise ParserError.new(e.message)
   end
 
