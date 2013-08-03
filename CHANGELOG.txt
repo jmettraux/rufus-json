@@ -2,7 +2,7 @@
 = rufus-json CHANGELOG.txt
 
 
-== rufus-json - 1.0.5    not yet released
+== rufus-json - 1.0.5    released 2013/08/03
 
 - ensure .dup stringifies keys when backend == NONE
 
