@@ -28,7 +28,7 @@ require 'ostruct'
 module Rufus
 module Json
 
-  VERSION = '1.0.4'
+  VERSION = '1.0.5'
 
   # The JSON / JSON pure decoder
   #

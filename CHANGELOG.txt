@@ -2,6 +2,9 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 1.0.5    not yet released
+
+
 == rufus-json - 1.0.4    released 2013/03/06
 
 - add support for OJ (https://github.com/ohler55/oj)
