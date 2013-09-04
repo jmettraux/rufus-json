@@ -94,6 +94,19 @@ module Json
       ::Oj::ParseError }
   }
 
+  # https://github.com/guyboertje/jrjackson
+  #
+  JRJACKSON = {
+      :encode => lambda { |o, opts|
+        fix_raw_value(::JrJackson::Json.dump(syms_to_s(o))) },
+      :pretty_encode => lambda { |o|
+        fix_raw_value(::JrJackson::Json.dump(syms_to_s(o))) },
+      :decode => lambda { |s|
+        ::JrJackson::Json.load(s) },
+      :error => lambda {
+        ::JrJackson::ParseError }
+  }
+
   # The "raise an exception because there's no backend" backend
   #
   NONE = {
@@ -134,7 +147,9 @@ module Json
   #
   def self.detect_backend
 
-    @backend = if defined?(::Oj)
+    @backend = if defined?(::JrJackson)
+      JRJACKSON
+    elsif defined?(::Oj)
       OJ
     elsif defined?(::Yajl)
       YAJL
@@ -161,7 +176,7 @@ module Json
   #
   def self.backend
 
-    %w[ yajl json active oj none ].find { |b|
+    %w[ yajl json active oj jrjackson none ].find { |b|
       Rufus::Json.const_get(b.upcase) == @backend
     }.to_sym
   end
@@ -177,7 +192,7 @@ module Json
       'yajl' => YAJL, 'yajl-ruby' => YAJL,
       'json' => JSON, 'json-pure' => JSON,
       'active' => ACTIVE, 'active-support' => ACTIVE,
-      'oj' => OJ, 'none' => NONE
+      'oj' => OJ, 'jrjackson' => JRJACKSON, 'none' => NONE
     }[b.to_s.gsub(/[_\/]/, '-')] if b.is_a?(String) or b.is_a?(Symbol)
 
     @backend = b
@@ -251,6 +266,20 @@ module Json
     return o unless o.is_a?(Hash)
 
     o.inject({}) { |h, (k, v)| h[k.to_s] = syms_to_s(v); h }
+  end
+
+  # Used to handle parsers that do not support raw value encoding
+  # (i.e. JrJackson)
+  def self.fix_raw_value(o)
+    case o
+      when FalseClass, TrueClass, Fixnum, Float
+        o.to_s
+      when NilClass
+        'null'
+      else
+        o
+    end
+
   end
 
   # Wraps parser errors during decode

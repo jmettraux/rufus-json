@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.summary = 'One interface to various JSON ruby libs, with a preference for yajl.'
 
   s.description = %{
-One interface to various JSON ruby libs (yajl, oj, json, json_pure, json-jruby, active_support). Has a preference for yajl.
+One interface to various JSON ruby libs (yajl, oj, jrjackson, json, json_pure, json-jruby, active_support). Has a preference for yajl.
   }.strip
 
   #s.files = `git ls-files`.split("\n")
@@ -26,6 +26,7 @@ One interface to various JSON ruby libs (yajl, oj, json, json_pure, json-jruby, 
     '*.gemspec', '*.txt', '*.rdoc', '*.md'
   ]
 
+  #s.add_development_dependency 'jrjackson'
   #s.add_development_dependency 'oj'
   #s.add_development_dependency 'json'
   #s.add_development_dependency 'json_pure'
