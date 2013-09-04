@@ -59,8 +59,13 @@ class BackendTest < Test::Unit::TestCase
 
     r = Rufus::Json.load_backend
 
-    assert_equal 'yajl', r
-    assert_equal :yajl, Rufus::Json.backend
+    if RUBY_PLATFORM == 'ruby'
+      assert_equal 'yajl', r
+      assert_equal :yajl, Rufus::Json.backend
+    elsif RUBY_PLATFORM == 'jruby'
+      assert_equal 'active_support', r
+      assert_equal :active, Rufus::Json.backend
+    end
   end
 
   def test_load_backend_with_different_order

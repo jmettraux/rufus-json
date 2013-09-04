@@ -128,7 +128,7 @@ class DoTest < Test::Unit::TestCase
     s = Rufus::Json.pretty_encode(
       { 'a' => 'b', 'e' => [ 1, 2, 3 ], 'c' => { 'd' => true } })
 
-    assert(s.index("\n")) if JSON_LIB != 'active_support'
+    assert(s.index("\n")) if JSON_LIB != 'active_support' && JSON_LIB != 'jrjackson'  #no pretty encoding supported
   end
 end
 
