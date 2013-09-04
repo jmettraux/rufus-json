@@ -26,7 +26,7 @@
 module Rufus
 module Json
 
-  VERSION = '1.0.5'
+  VERSION = '1.0.6'
 
   # The JSON / JSON pure decoder
   #
