@@ -1,5 +1,10 @@
 
 == authors
 
-John Mettraux - http://github.com/jmettraux
+John Mettraux - https://github.com/jmettraux
+Torsten Schoenebaum - https://github.com/tosch
+
+== contributors
+
+Nando Sola - https://github.com/nandosola - support for JrJackson
 

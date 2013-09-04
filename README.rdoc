@@ -90,7 +90,7 @@ http://rufus.rubyforge.org
 
 == authors
 
-* John Mettraux, http://jmettraux.wordpress.com/
+* John Mettraux, https://github.com/jmettraux
 * Torsten Schoenebaum, https://github.com/tosch
 
 
