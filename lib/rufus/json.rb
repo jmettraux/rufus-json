@@ -129,7 +129,8 @@ module Json
   #
   def self.load_backend(*order)
 
-    order = %w[ yajl active_support json json/pure ] if order.empty?
+    order =
+      %w[ yajl oj jrjackson active_support json json/pure ] if order.empty?
 
     order.each do |lib|
       begin
@@ -147,19 +148,20 @@ module Json
   #
   def self.detect_backend
 
-    @backend = if defined?(::JrJackson)
-      JRJACKSON
-    elsif defined?(::Oj)
-      OJ
-    elsif defined?(::Yajl)
-      YAJL
-    elsif defined?(::JSON)
-      JSON
-    elsif defined?(ActiveSupport::JSON)
-      ACTIVE_SUPPORT
-    else
-      NONE
-    end
+    @backend =
+      if defined?(::JrJackson)
+        JRJACKSON
+      elsif defined?(::Oj)
+        OJ
+      elsif defined?(::Yajl)
+        YAJL
+      elsif defined?(::JSON)
+        JSON
+      elsif defined?(ActiveSupport::JSON)
+        ACTIVE_SUPPORT
+      else
+        NONE
+      end
   end
 
   detect_backend
@@ -188,12 +190,13 @@ module Json
   #
   def self.backend=(b)
 
-    b = {
-      'yajl' => YAJL, 'yajl-ruby' => YAJL,
-      'json' => JSON, 'json-pure' => JSON,
-      'active' => ACTIVE, 'active-support' => ACTIVE,
-      'oj' => OJ, 'jrjackson' => JRJACKSON, 'none' => NONE
-    }[b.to_s.gsub(/[_\/]/, '-')] if b.is_a?(String) or b.is_a?(Symbol)
+    b =
+      {
+        'yajl' => YAJL, 'yajl-ruby' => YAJL,
+        'json' => JSON, 'json-pure' => JSON,
+        'active' => ACTIVE, 'active-support' => ACTIVE,
+        'oj' => OJ, 'jrjackson' => JRJACKSON, 'none' => NONE
+      }[b.to_s.gsub(/[_\/]/, '-')] if b.is_a?(String) or b.is_a?(Symbol)
 
     @backend = b
   end
@@ -270,7 +273,9 @@ module Json
 
   # Used to handle parsers that do not support raw value encoding
   # (i.e. JrJackson)
+  #
   def self.fix_raw_value(o)
+
     case o
       when FalseClass, TrueClass, Fixnum, Float
         o.to_s
@@ -279,7 +284,6 @@ module Json
       else
         o
     end
-
   end
 
   # Wraps parser errors during decode
