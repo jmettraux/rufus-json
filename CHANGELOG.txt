@@ -2,6 +2,11 @@
 = rufus-json CHANGELOG.txt
 
 
+== rufus-json - 1.0.5    released 2013/09/05
+
+- add support for JrJackson on JRuby (contribution by Nando Sola)
+
+
 == rufus-json - 1.0.5    released 2013/08/03
 
 - ensure .dup stringifies keys when backend == NONE
